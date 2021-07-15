@@ -1,0 +1,19 @@
+syntax = "proto3";
+package feeds;
+
+
+service Feeds {
+    rpc SubscribeStream(stream SubscribeStreamRequest) returns (stream SubscribeResponse);
+}
+
+message SubscribeStreamRequest {
+    string id = 1;
+}
+
+message SubscribeResponse {
+    Item item = 1;
+}
+
+message Item {
+    string id = 1;
+}
