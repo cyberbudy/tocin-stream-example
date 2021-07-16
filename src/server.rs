@@ -78,10 +78,14 @@ impl Feeds for FeedsService {
             "Current users size {:#?}",
             self.shared.read().await.senders.keys().len()
         );
-        async_stream::try_stream! {
+        tokio::spawn(async move {
             while let Some(message) = stream.next().await {
+                match message {
+                    Ok(_) => {},
+                    Err(_) => {break}
+                }
             }
-        };
+        });
 
         let shared_clone = self.shared.clone();
 
